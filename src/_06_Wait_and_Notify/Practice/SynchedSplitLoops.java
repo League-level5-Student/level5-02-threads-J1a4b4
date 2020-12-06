@@ -4,7 +4,7 @@ package _06_Wait_and_Notify.Practice;
  
 Below are two threads. One thread increments the counter
 and the other thread prints the result. If you run the
-program as it is, you'll notice that the output in not
+program as it is, you'll notice that the output is not
 sequential.
 
 Your goal is to modify the code inside the threads so that 

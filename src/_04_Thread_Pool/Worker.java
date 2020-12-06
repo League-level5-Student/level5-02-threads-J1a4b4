@@ -8,7 +8,6 @@ public class Worker implements Runnable {
 	
 	public Worker(ConcurrentLinkedQueue<Task> taskQueue) {
 		this.taskQueue = taskQueue;
-		taskQueue = new ConcurrentLinkedQueue<Task>();
 	}
 	
 	@Override
