@@ -18,25 +18,25 @@ printed in order.
 public class SynchedSplitLoops {
 	static int counter = 0;
 	static Object lock = new Object();
-	
+
 	public static void main(String[] args) {
 		Thread t1 = new Thread(() -> {
-			synchronized(lock) {
-				for(int i = 0; i < 100000; i++) {
+			synchronized (lock) {
+				for (int i = 0; i < 100001; i++) {
 					counter++;
-				}
-				lock.notify();
-				try {
-					lock.wait();
-				} catch (InterruptedException e) {
-					System.out.println("error");
+					lock.notify();
+					try {
+						lock.wait();
+					} catch (InterruptedException e) {
+						System.out.println("error");
+					}
 				}
 			}
 		});
-		
+
 		Thread t2 = new Thread(() -> {
-			for(int i = 0; i < 100000; i++) {
-				synchronized(lock) {
+			synchronized (lock) {
+				for (int i = 0; i < 100001; i++) {
 					System.out.println(counter);
 					lock.notify();
 					try {
@@ -47,16 +47,16 @@ public class SynchedSplitLoops {
 				}
 			}
 		});
-		
-		t1.start();
+
 		t2.start();
-		
+		t1.start();
+
 		try {
-			t1.join();
 			t2.join();
+			t1.join();
 		} catch (InterruptedException e) {
 			System.err.println("Could not join threads");
 		}
-		
+
 	}
 }
